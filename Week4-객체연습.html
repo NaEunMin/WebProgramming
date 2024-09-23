@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>객체 생성</title>
+  </head>
+  <body>
+    <h3>1. 직접 객체 만들기</h3>
+    <hr />
+    <script>
+      //new Object
+      function register() {
+        this.students++;
+      }
+      function unregister() {
+        this.students--;
+      }
+      function getStudents() {
+        return this.students;
+      }
+      let lecture = new Object();
+      lecture.className = '웹프로그래밍';
+      lecture.classEngName = 'WebProgramming';
+      lecture.students = 0;
+      lecture.classCode = 'V024003';
+      lecture.register = register;
+      lecture.unregister = unregister;
+      lecture.getStudents = getStudents;
+      document.write('교과목 이름 = ' + lecture.className + '<br>');
+      document.write('등록 학생 수 = ' + lecture.students + '<br>');
+      lecture.register();
+      document.write(
+        'after register, 등록 학생 수 = ' + lecture.students + '<br>'
+      );
+    </script>
+    <hr />
+    <h3>2. 리터럴 표기법</h3>
+    <script>
+      //리터럴 표기법
+      let lecture2 = {
+        className: '웹프로그래밍',
+        classEngName: 'WebProgramming',
+        students: 0,
+        classCode: 'V024003',
+        register: function () {
+          this.students++; //this를 사용하지 않으면 전역변수로 접근함, 반드시 this를 적어 객체변수에 접근 할 수 있도록 하자.
+        },
+        unregister: function () {
+          this.students--;
+        },
+        getStudents: function () {
+          return this.students;
+        },
+      };
+      document.write('교과목 이름 = ' + lecture2.className + '<br>');
+      document.write('등록 학생 수 = ' + lecture2.students + '<br>');
+      lecture2.register();
+      document.write(
+        'after register, 등록 학생 수 = ' + lecture2.getStudents() + '<br>'
+      );
+    </script>
+    <hr />
+    <h3>3. ProtoType</h3>
+    <script>
+      function lecture3(className, classEngName, students, classCode) {
+        this.className = className;
+        this.classEngName = classEngName;
+        this.students = students;
+        this.classCode = classCode;
+        this.register = function () {
+          students++;
+        };
+        this.unregister = function () {
+          students--;
+        };
+        this.getStudents = function () {
+          return students;
+        };
+      }
+      let infomation = new lecture3(
+        '웹프로그래밍',
+        'WebProgramming',
+        0,
+        'V024003'
+      );
+      document.write('교과목 이름 = ' + infomation.className + '<br>');
+      document.write('등록 학생 수 = ' + infomation.students + '<br>');
+      infomation.register();
+      document.write(
+        'after register, 등록 학생 수 = ' + infomation.getStudents() + '<br>'
+      );
+    </script>
+  </body>
+</html>
