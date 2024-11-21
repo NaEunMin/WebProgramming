@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.html</title>
+  </head>
+  <body>
+    <div>Officer 1:</div>
+    <div>Officer 2:</div>
+    <div>Officer 3:</div>
+    <input type="button" value="Officer 정보 입력" onclick="inputData()" />
+    <script>
+      // 1. new Object 기법
+      let Officer1 = new Object();
+      Officer1.name = '';
+      Officer1.age = '';
+
+      // 2. 리터럴 표기법
+      let Officer2 = {
+        name: '',
+        age: '',
+      };
+
+      // 3. 프로토타입 기법
+      function Officer3(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      // Officer3 객체를 저장할 배열
+      let officers3 = [];
+
+      function inputData() {
+        const input = prompt('이름과 나이를 입력하세요 (예: 홍길동, 30)');
+        if (input) {
+          // 입력을 분리
+          const separatorIndex = input.indexOf(',');
+          const name = input.substring(0, separatorIndex).trim();
+          const age = input.substring(separatorIndex + 1).trim();
+
+          // Officer 1 데이터 입력
+          Officer1.name = name;
+          Officer1.age = age;
+          const officerDivs = document.getElementsByTagName('div');
+          officerDivs[0].textContent = `Officer by new Object - 이름: ${Officer1.name}, 나이: ${Officer1.age}`;
+
+          // Officer 2 데이터 입력
+          Officer2.name = name;
+          Officer2.age = age;
+          officerDivs[1].textContent = `Officer by literal 표기법 - 이름: ${Officer2.name}, 나이: ${Officer2.age}`;
+
+          // Officer 3 데이터 입력
+          const officer3 = new Officer3(name, age);
+          officers3.push(officer3); // Officer3 객체를 배열에 추가
+          officerDivs[2].textContent = `Officer by Prototype - 이름: ${officer3.name}, 나이: ${officer3.age}`;
+        }
+      }
+    </script>
+  </body>
+</html>
